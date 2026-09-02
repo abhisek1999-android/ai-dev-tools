@@ -1,12 +1,2 @@
 name = "ai-cost-architect"
-pages_build_output_dir = "dist/ai-cost-architect/browser"
-
-[build]
-command = "npm run build"
-watch_paths = ["src/**/*.ts"]
-
-[env.production]
-name = "ai-cost-architect"
-routes = [
-  { pattern = "*", zone_name = "example.com" }
-]
+compatibility_date = "2026-08-31"
