@@ -1,3 +1,7 @@
-name = "ai-cost-architect"
+name = "ai-dev-tools"
 compatibility_date = "2026-08-31"
-pages_build_output_dir = "dist/ai-cost-architect"
+account_id = "cd8fd8080198406ef4fdfc7ae0d31862"
+
+[assets]
+directory = "dist/ai-cost-architect"
+not_found_handling = "single-page-application"
