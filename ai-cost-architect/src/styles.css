@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens — "Slate Console"
+ *  Components reference semantic tokens only. Light/dark just swap
+ *  the channel values below; component code never changes.
+ *  Values are space-separated RGB channels for Tailwind alpha support.
+ * ------------------------------------------------------------------ */
+:root {
+  --c-bg:                 248 250 252;   /* #F8FAFC */
+  --c-surface:            255 255 255;   /* #FFFFFF */
+  --c-surface-2:          241 245 249;   /* #F1F5F9 */
+
+  --c-border:             226 232 240;   /* #E2E8F0 */
+  --c-border-strong:      203 213 225;   /* #CBD5E1 */
+
+  --c-fg:                 15 23 42;      /* #0F172A */
+  --c-muted:              71 85 105;     /* #475569  (>= 4.5:1 on surface & surface-2) */
+  --c-faint:              85 97 112;     /* #556170  (>= 4.5:1 small text on every surface) */
+
+  --c-accent:             79 70 229;     /* #4F46E5  indigo-600 — text/icon accent */
+  --c-accent-hover:       67 56 202;     /* #4338CA */
+  --c-accent-solid:       79 70 229;     /* button background */
+  --c-accent-solid-hover: 67 56 202;
+
+  --c-positive:           4 120 87;      /* #047857  (>= 4.5:1 small text on light surfaces) */
+  --c-warning:            180 83 9;      /* #B45309 */
+  --c-danger:             220 38 38;     /* #DC2626 */
+
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg:                 11 15 20;      /* #0B0F14  soft near-black */
+  --c-surface:            19 24 32;      /* #131820 */
+  --c-surface-2:          27 34 44;      /* #1B222C */
+
+  --c-border:             42 50 61;      /* #2A323D */
+  --c-border-strong:      58 67 79;      /* #3A434F */
+
+  --c-fg:                 230 237 243;   /* #E6EDF3 */
+  --c-muted:              148 163 184;   /* #94A3B8  (>= 4.5:1 on surface) */
+  --c-faint:              125 139 156;   /* #7D8B9C */
+
+  --c-accent:             129 140 248;   /* #818CF8  indigo-400 — reads on dark */
+  --c-accent-hover:       165 180 252;   /* #A5B4FC */
+  --c-accent-solid:       79 70 229;     /* #4F46E5 — white text stays >= 4.5:1 */
+  --c-accent-solid-hover: 99 102 241;    /* #6366F1 */
+
+  --c-positive:           52 211 153;    /* #34D399 */
+  --c-warning:            251 191 36;    /* #FBBF24 */
+  --c-danger:             248 113 113;   /* #F87171 */
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-bg text-fg font-sans antialiased; }
+  ::selection { @apply bg-accent/25 text-fg; }
+
+  /* Consistent, visible focus on both grounds */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent/50 ring-offset-2 ring-offset-bg rounded;
+  }
+}
+
+@layer components {
+
+  /* Layout ------------------------------------------------------------ */
+  .container-page { @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .container-narrow { @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+  /* Card ------------------------------------------------------------- */
+  .card { @apply bg-surface rounded-xl border border-border shadow-sm; }
+  .card-pad { @apply p-5 sm:p-6; }
+  .card-title { @apply text-sm font-semibold text-fg; }
+  .card-title-icon { @apply flex items-center gap-2 text-sm font-semibold text-fg; }
+
+  /* Forms ---------------------------------------------------------- */
+  .label { @apply block text-xs font-medium text-muted mb-1.5; }
+  .field {
+    @apply w-full rounded-lg border border-border bg-surface-2 text-fg text-sm px-3 py-2
+           placeholder:text-faint transition-colors
+           focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none;
+  }
+  .field:disabled { @apply opacity-50 cursor-not-allowed; }
+  select.field {
+    @apply appearance-none cursor-pointer pr-9 bg-no-repeat;
+    background-position: right 0.65rem center;
+    background-size: 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+  .checkbox {
+    @apply rounded border-border bg-surface-2 text-accent-solid
+           focus:ring-2 focus:ring-accent/30 focus:ring-offset-0;
+  }
+
+  /* Buttons ------------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
+           transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50
+           focus-visible:ring-offset-2 focus-visible:ring-offset-bg
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary   { @apply btn bg-accent-solid text-white shadow-sm hover:bg-accent-solid-hover; }
+  .btn-secondary { @apply btn border border-border bg-surface text-fg hover:bg-surface-2; }
+  .btn-ghost     { @apply btn text-muted hover:text-fg hover:bg-surface-2; }
+
+  /* Chips (toggle-able presets / model pills) -------------------- */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface
+           px-3 py-1.5 text-xs font-medium text-muted transition-colors cursor-pointer
+           hover:border-accent/50 hover:text-accent
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50;
+  }
+  .chip-active { @apply border-accent bg-accent/10 text-accent; }
+
+  /* Stats / result readouts ------------------------------------- */
+  .stat        { @apply rounded-lg bg-surface-2 p-4; }
+  .stat-accent { @apply rounded-lg bg-accent/10 p-4; }
+  .stat-label  { @apply text-[11px] font-medium uppercase tracking-wide text-muted; }
+  .stat-value  { @apply mt-1 text-2xl font-bold font-mono tabular-nums text-fg; }
+  .stat-value-accent { @apply text-accent; }
+  .stat-hero {
+    @apply rounded-xl bg-accent/10 p-6 text-center;
+  }
+  .stat-hero-value { @apply mt-2 text-4xl font-bold font-mono tabular-nums text-accent; }
+
+  /* Badges ----------------------------------------------------- */
+  .badge { @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium; }
+  .badge-positive { @apply badge bg-positive/10 text-positive; }
+  .badge-neutral  { @apply badge bg-surface-2 text-muted; }
+  .badge-warning  { @apply badge bg-warning/10 text-warning; }
+
+  /* Misc ------------------------------------------------------ */
+  .breadcrumb { @apply flex items-center gap-1.5 text-xs text-faint; }
+  .divider    { @apply border-t border-border; }
+  .link       { @apply text-accent hover:text-accent-hover underline underline-offset-2 transition-colors; }
+  .prose-muted { @apply text-sm text-muted leading-relaxed; }
+  .prose-muted strong { @apply text-fg font-semibold; }
+
+  .data-table { @apply w-full text-sm; }
+  .data-table thead th {
+    @apply pb-3 text-[11px] font-semibold uppercase tracking-wide text-faint text-left;
+  }
+  .data-table tbody td { @apply py-3 border-t border-border align-top; }
+
+  .math-block { @apply rounded-lg border border-border bg-surface-2 p-4 font-mono text-xs space-y-1; }
+
+  .progress-track    { @apply h-2 rounded-full bg-surface-2 overflow-hidden; }
+  .progress-track-lg { @apply h-3.5 rounded-full bg-surface-2 overflow-hidden; }
+
+  .callout-warning {
+    @apply rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-warning;
+  }
+  .callout-positive {
+    @apply rounded-lg border border-positive/30 bg-positive/10 p-3 text-sm text-positive;
+  }
+}

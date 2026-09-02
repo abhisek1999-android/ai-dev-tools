@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(ng version 2>&1)",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(npm install -g @angular/cli@18 2>&1)",
+      "PowerShell(npm install -g @angular/cli@16 2>&1)",
+      "PowerShell(ng version 2>&1 | Where-Object { $_ -match \"Angular CLI|Node|Package\" })",
+      "WebFetch(domain:token-calculator.net)",
+      "WebFetch(domain:platform.openai.com)",
+      "WebFetch(domain:tokencounter.org)",
+      "WebFetch(domain:www.tokenizer.co)",
+      "Bash(npm run *)",
+      "Bash(npm start *)",
+      "PowerShell($resp = try { Invoke-WebRequest -Uri \"http://localhost:4200\" -TimeoutSec 5 -UseBasicParsing } catch { $null }; if \\($resp\\) { \"Server is UP - Status: $\\($resp.StatusCode\\)\" } else { \"Server is DOWN or not responding\" })"
+    ]
+  }
+}

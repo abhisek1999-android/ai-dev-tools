@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AI Cost Architect — Estimate, Compare & Optimize AI Application Costs</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free AI cost calculators for developers. Estimate token costs, compare LLM pricing, plan RAG pipelines, and optimize your AI application budget. All calculations run in your browser.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="AI Cost Architect — Model your AI bill before you build it">
+  <meta property="og:description" content="Free AI cost calculators for developers. Token counter, LLM cost calculator, model comparison, RAG cost planner and more.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    // Apply the saved / preferred theme before first paint to avoid a flash.
+    (function () {
+      try {
+        var q = new URLSearchParams(location.search).get('theme');
+        if (q === 'light' || q === 'dark') { localStorage.setItem('theme', q); }
+        var t = localStorage.getItem('theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.classList.toggle('dark', t === 'dark');
+        document.documentElement.style.colorScheme = t;
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
