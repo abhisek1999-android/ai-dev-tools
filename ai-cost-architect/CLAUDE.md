@@ -101,7 +101,25 @@ The `vercel.json` rewrites all routes to `index.html` for client-side routing.
 - **Show the math:** Every result has an expandable formula (ShowMathComponent).
 - **Explainable pricing:** Every model entry has a `pricingUrl` and `lastVerified` date.
 - **No backend in Phase 1:** Backend (FastAPI/Python) is planned for Phase 8 AI features only.
-- **SEO:** Each tool page has a dedicated URL with a meaningful meta description.
+- **SEO:** Each tool page has a dedicated URL with meaningful meta descriptions, structured data, and a blog for content marketing.
+
+## Recent Updates (v2.0)
+- **Token Calculator as Landing Page:** Root route (`/`) now redirects to `/tools/token-calculator`
+- **Blog Feature:** New blog section at `/blog` with SEO-optimized article listing and individual post pages
+- **SEO Improvements:** 
+  - MetaService for consistent meta tag management across all pages
+  - JSON-LD structured data for rich snippets
+  - `sitemap.xml` for search engine crawling
+  - `robots.txt` for crawler directives
+  - Updated Open Graph tags in `index.html`
+- **Meta Service:** New `src/app/core/services/meta.service.ts` for managing page titles, descriptions, and structured data
+- **Blog Data:** Sample blog posts in `src/app/lib/blog/blog.data.ts` covering tokens, pricing, RAG, context windows, and budgeting
+
+## New Routes
+- `/` → Redirects to `/tools/token-calculator` (token counter is the primary landing page)
+- `/home` → Tools overview page (formerly at `/`)
+- `/blog` → Blog listing (all articles)
+- `/blog/:slug` → Individual blog post
 
 ## Roadmap (from `ai_cost_architect_phase_plan.md`)
 - **Phase 1 (current):** 5 core calculators — done

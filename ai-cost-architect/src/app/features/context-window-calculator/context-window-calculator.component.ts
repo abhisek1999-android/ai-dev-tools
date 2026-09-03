@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LLM_MODELS, PRICING_VERSION } from '../../lib/pricing/pricing.data';
@@ -9,10 +9,12 @@ import { PageHeaderComponent } from '../../shared/components/page-header.compone
 import { IconComponent } from '../../shared/components/icon.component';
 import { countTokens } from '../../lib/calculators/token.calculator';
 import { LlmModel } from '../../lib/pricing/pricing.types';
+import { MetaService } from '../../core/services/meta.service';
 
 @Component({
   selector: 'app-context-window-calculator',
   standalone: true,
+  host: { ngSkipHydration: 'true' },
   imports: [CommonModule, FormsModule, ShowMathComponent, PageHeaderComponent, IconComponent],
   template: `
     <div class="container-narrow py-10">
@@ -161,13 +163,32 @@ import { LlmModel } from '../../lib/pricing/pricing.types';
     </div>
   `,
 })
-export class ContextWindowCalculatorComponent {
+export class ContextWindowCalculatorComponent implements OnInit {
   pricingVersion = PRICING_VERSION;
   models = LLM_MODELS;
   tokensToK = tokensToK;
   fmt = formatCurrency;
+  private meta = inject(MetaService);
 
   selectedModelId = 'gpt-4o';
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'Context Window Calculator — Calculate LLM Context Usage & Costs',
+      description: 'Calculate how much of a model\'s context window your text uses and what it costs. See context window sizes for GPT, Claude, Gemini, and more.',
+      keywords: 'context window, token limit, LLM context, prompt size',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Context Window Calculator',
+      description: 'Calculate context window usage and costs',
+      url: 'https://tokiq.in/tools/context-window-calculator',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
   inputMode = signal<'text' | 'tokens'>('text');
   pastedText = signal('');
   manualTokens = 0;

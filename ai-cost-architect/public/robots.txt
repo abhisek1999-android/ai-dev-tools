@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Allow: /tools/
+Allow: /blog/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+
+Sitemap: https://tokiq.in/sitemap.xml
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /

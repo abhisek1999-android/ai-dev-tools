@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LLM_MODELS, PRICING_VERSION, WORKLOAD_PRESETS } from '../../lib/pricing/pricing.data';
@@ -6,11 +6,13 @@ import { compareModels, ComparisonRow } from '../../lib/calculators/comparison.c
 import { formatCurrency } from '../../lib/utils/number.utils';
 import { PageHeaderComponent } from '../../shared/components/page-header.component';
 import { IconComponent } from '../../shared/components/icon.component';
+import { MetaService } from '../../core/services/meta.service';
 
 @Component({
   selector: 'app-model-comparison',
   standalone: true,
   imports: [CommonModule, FormsModule, PageHeaderComponent, IconComponent],
+  host: { ngSkipHydration: 'true' },
   template: `
     <div class="container-page py-10">
 
@@ -140,11 +142,30 @@ import { IconComponent } from '../../shared/components/icon.component';
     </div>
   `,
 })
-export class ModelComparisonComponent {
+export class ModelComparisonComponent implements OnInit {
   pricingVersion = PRICING_VERSION;
   presets = WORKLOAD_PRESETS;
   allModels = LLM_MODELS;
   fmt = formatCurrency;
+  private meta = inject(MetaService);
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'LLM Model Comparison — Compare Costs Across AI Providers',
+      description: 'Side-by-side cost comparison for GPT-4o, Claude, Gemini, Mistral, DeepSeek, Llama, and more. Find the most cost-effective model for your workload.',
+      keywords: 'model comparison, LLM pricing, GPT vs Claude, cost comparison',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Model Comparison',
+      description: 'Compare LLM costs across providers',
+      url: 'https://tokiq.in/tools/model-comparison',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
 
   inputTokens = 1000;
   outputTokens = 500;

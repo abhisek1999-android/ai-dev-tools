@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LLM_MODELS, EMBEDDING_MODELS, VECTOR_DBS, PRICING_VERSION } from '../../lib/pricing/pricing.data';
@@ -8,11 +8,13 @@ import { ShowMathComponent, MathStep } from '../../shared/components/show-math.c
 import { PageHeaderComponent } from '../../shared/components/page-header.component';
 import { IconComponent } from '../../shared/components/icon.component';
 import { LlmModel, EmbeddingModel, VectorDbOption } from '../../lib/pricing/pricing.types';
+import { MetaService } from '../../core/services/meta.service';
 
 @Component({
   selector: 'app-rag-cost-calculator',
   standalone: true,
   imports: [CommonModule, FormsModule, ShowMathComponent, PageHeaderComponent, IconComponent],
+  host: { ngSkipHydration: 'true' },
   template: `
     <div class="container-page py-10">
 
@@ -198,15 +200,34 @@ import { LlmModel, EmbeddingModel, VectorDbOption } from '../../lib/pricing/pric
     </div>
   `,
 })
-export class RagCostCalculatorComponent {
+export class RagCostCalculatorComponent implements OnInit {
   pricingVersion = PRICING_VERSION;
   llmModels = LLM_MODELS;
   embeddingModels = EMBEDDING_MODELS;
   vectorDbs = VECTOR_DBS;
   fmt = formatCurrency;
   formatNum = formatNumber;
+  private meta = inject(MetaService);
 
   documentCount = 1000;
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'RAG Cost Calculator — Estimate Retrieval-Augmented Generation Costs',
+      description: 'Calculate full RAG pipeline costs: embeddings, vector storage, retrieval, reranking, and LLM generation. Optimize your RAG system budget.',
+      keywords: 'RAG cost, embedding costs, vector database, retrieval costs',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'RAG Cost Calculator',
+      description: 'Calculate RAG pipeline costs',
+      url: 'https://tokiq.in/tools/rag-cost-calculator',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
   avgDocumentTokens = 2000;
   corpusGrowthPct = 10;
   chunkSize = 512;

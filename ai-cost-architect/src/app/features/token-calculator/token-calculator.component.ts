@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LLM_MODELS, PRICING_VERSION } from '../../lib/pricing/pricing.data';
@@ -7,6 +7,7 @@ import { formatCurrency, formatNumber } from '../../lib/utils/number.utils';
 import { ShowMathComponent, MathStep } from '../../shared/components/show-math.component';
 import { PageHeaderComponent } from '../../shared/components/page-header.component';
 import { IconComponent } from '../../shared/components/icon.component';
+import { MetaService } from '../../core/services/meta.service';
 
 const TOKEN_COLORS = [
   '#dbeafe', // blue
@@ -23,6 +24,7 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
   selector: 'app-token-calculator',
   standalone: true,
   imports: [CommonModule, FormsModule, ShowMathComponent, PageHeaderComponent, IconComponent],
+  host: { ngSkipHydration: 'true' },
   template: `
     <div class="container-narrow py-10">
 
@@ -173,7 +175,7 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
     </div>
   `,
 })
-export class TokenCalculatorComponent {
+export class TokenCalculatorComponent implements OnInit {
   pricingVersion = PRICING_VERSION;
   models = LLM_MODELS;
   selectedModelId = 'gpt-4o';
@@ -181,6 +183,25 @@ export class TokenCalculatorComponent {
   visualizationLimit = VISUALIZATION_TOKEN_LIMIT;
 
   text = signal('');
+  private meta = inject(MetaService);
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'Free Token Counter — Count tokens for GPT, Claude, Gemini',
+      description: 'Paste any text and instantly count tokens for GPT-4o, Claude, Gemini, and more. See character, word, and line counts. All processing happens in your browser.',
+      keywords: 'token counter, token counting, GPT tokens, Claude tokens, Gemini tokens, tokenizer',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'AI Cost Architect Token Counter',
+      description: 'Free token counter for GPT, Claude, Gemini and more LLMs',
+      url: 'https://tokiq.in/tools/token-calculator',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
 
   get selectedModel() {
     return this.models.find(m => m.id === this.selectedModelId) ?? this.models[0];

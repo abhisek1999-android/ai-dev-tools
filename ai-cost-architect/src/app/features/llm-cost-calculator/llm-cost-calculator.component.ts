@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LLM_MODELS, PRICING_VERSION, WORKLOAD_PRESETS } from '../../lib/pricing/pricing.data';
@@ -8,11 +8,13 @@ import { ShowMathComponent } from '../../shared/components/show-math.component';
 import { PageHeaderComponent } from '../../shared/components/page-header.component';
 import { IconComponent } from '../../shared/components/icon.component';
 import { LlmModel } from '../../lib/pricing/pricing.types';
+import { MetaService } from '../../core/services/meta.service';
 
 @Component({
   selector: 'app-llm-cost-calculator',
   standalone: true,
   imports: [CommonModule, FormsModule, ShowMathComponent, PageHeaderComponent, IconComponent],
+  host: { ngSkipHydration: 'true' },
   template: `
     <div class="container-page py-10">
 
@@ -163,10 +165,29 @@ import { LlmModel } from '../../lib/pricing/pricing.types';
     </div>
   `,
 })
-export class LlmCostCalculatorComponent {
+export class LlmCostCalculatorComponent implements OnInit {
   pricingVersion = PRICING_VERSION;
   presets = WORKLOAD_PRESETS;
   fmt = formatCurrency;
+  private meta = inject(MetaService);
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'LLM Cost Calculator — Estimate Monthly AI API Costs',
+      description: 'Calculate daily, monthly, and yearly costs for LLM API usage. Get cost estimates for GPT-4o, Claude, Gemini, Mistral, and more with full breakdown.',
+      keywords: 'LLM cost calculator, API costs, token calculator, pricing estimate',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'LLM Cost Calculator',
+      description: 'Calculate costs for LLM API usage',
+      url: 'https://tokiq.in/tools/llm-cost-calculator',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
 
   selectedModelId = 'gpt-4o';
   inputTokens = 1000;

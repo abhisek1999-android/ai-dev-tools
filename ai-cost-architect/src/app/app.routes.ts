@@ -3,6 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/tools/token-calculator',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
     loadComponent: () =>
       import('./features/home/home.component').then(m => m.HomeComponent),
   },
@@ -31,5 +36,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/rag-cost-calculator/rag-cost-calculator.component').then(m => m.RagCostCalculatorComponent),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: 'blog',
+    loadComponent: () =>
+      import('./features/blog/blog-list.component').then(m => m.BlogListComponent),
+  },
+  {
+    path: 'blog/:slug',
+    loadComponent: () =>
+      import('./features/blog/blog-post.component').then(m => m.BlogPostComponent),
+  },
+  { path: '**', redirectTo: '/tools/token-calculator' },
 ];

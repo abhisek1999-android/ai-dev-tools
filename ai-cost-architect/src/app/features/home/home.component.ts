@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../shared/components/icon.component';
+import { MetaService } from '../../core/services/meta.service';
 
 interface Tool {
   icon: string;
@@ -17,6 +18,7 @@ interface Feature { icon: string; title: string; description: string; }
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterLink, IconComponent],
+  host: { ngSkipHydration: 'true' },
   template: `
     <!-- Hero -->
     <section class="border-b border-border bg-surface">
@@ -89,7 +91,27 @@ interface Feature { icon: string; title: string; description: string; }
     </section>
   `,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  private meta = inject(MetaService);
+
+  ngOnInit() {
+    this.meta.setPageMeta({
+      title: 'AI Cost Architect — Free AI Calculators & Cost Estimation Tools',
+      description: 'Free tools to estimate AI costs: token counter, LLM cost calculator, model comparison, context window calculator, and RAG cost planner. All processing in-browser.',
+      keywords: 'AI cost calculator, token counter, LLM pricing, model comparison, RAG cost, AI budgeting',
+      type: 'website'
+    });
+
+    this.meta.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'AI Cost Architect',
+      description: 'Free AI cost calculators for developers',
+      url: 'https://tokiq.in/home',
+      applicationCategory: 'UtilityApplication'
+    });
+  }
+
   tools: Tool[] = [
     {
       icon: 'sigma',
