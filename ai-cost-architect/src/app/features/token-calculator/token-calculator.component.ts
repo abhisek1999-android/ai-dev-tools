@@ -196,7 +196,7 @@ export class TokenCalculatorComponent implements OnInit {
     this.meta.setJsonLd({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'tokiq Token Counter',
+      name: 'TokIQ Token Counter',
       description: 'Free token counter for GPT, Claude, Gemini and more LLMs',
       url: 'https://tokiq.in/tools/token-calculator',
       applicationCategory: 'UtilityApplication'

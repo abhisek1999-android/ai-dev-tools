@@ -77,7 +77,7 @@ interface Feature { icon: string; title: string; description: string; }
     <!-- Why -->
     <section class="border-t border-border bg-surface">
       <div class="container-page py-16">
-        <h2 class="mb-10 text-center text-2xl font-bold tracking-tight text-fg">Why tokiq?</h2>
+        <h2 class="mb-10 text-center text-2xl font-bold tracking-tight text-fg">Why TokIQ?</h2>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div *ngFor="let f of features" class="text-center">
             <span class="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.meta.setPageMeta({
-      title: 'tokiq — Free Token Counter & AI Cost Calculators',
+      title: 'TokIQ — Free Token Counter & AI Cost Calculators',
       description: 'Free tools to estimate AI costs: token counter, LLM cost calculator, model comparison, context window calculator, and RAG cost planner. All processing in-browser.',
       keywords: 'AI cost calculator, token counter, LLM pricing, model comparison, RAG cost, AI budgeting',
       type: 'website'
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
     this.meta.setJsonLd({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      name: 'tokiq',
+      name: 'TokIQ',
       description: 'Free token counter and AI cost calculators for developers',
       url: 'https://tokiq.in/home',
       applicationCategory: 'UtilityApplication'
