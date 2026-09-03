@@ -100,9 +100,11 @@ import { MetaService } from '../../core/services/meta.service';
               <tbody>
                 <tr *ngFor="let row of results" [ngClass]="{ 'bg-positive/5': row.rank === 1 }">
                   <td>
-                    <span class="flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold"
+                    <!-- text-bg (black) on the light sage fill: ~9.5:1.
+                         text-white here was ~1.9:1 and failed AA. -->
+                    <span class="flex h-5 w-5 items-center justify-center text-[11px] font-bold"
                           [class.bg-positive]="row.rank === 1"
-                          [class.text-white]="row.rank === 1"
+                          [class.text-bg]="row.rank === 1"
                           [class.bg-surface-2]="row.rank !== 1"
                           [class.text-muted]="row.rank !== 1">
                       {{ row.rank }}

@@ -21,8 +21,9 @@ import { IconComponent } from '../../shared/components/icon.component';
       <div class="space-y-6">
         <a *ngFor="let post of posts"
            [routerLink]="'/blog/' + post.slug"
-           class="group block transition-all hover:shadow-sm">
-          <article class="border border-border rounded-lg p-6 bg-surface hover:bg-surface-2 transition-colors">
+           class="group block">
+          <article class="border border-border bg-surface p-6 transition-colors
+                          hover:border-border-strong hover:bg-surface-2">
             <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div class="flex-1">
                 <div class="mb-2 flex items-center gap-2 text-sm text-muted">
@@ -35,7 +36,8 @@ import { IconComponent } from '../../shared/components/icon.component';
                 </h2>
                 <p class="text-muted mb-3">{{ post.description }}</p>
                 <div class="flex flex-wrap gap-2">
-                  <span *ngFor="let tag of post.tags" class="text-xs bg-accent/10 text-accent px-2.5 py-1 rounded">
+                  <span *ngFor="let tag of post.tags"
+                        class="border border-border bg-surface-2 px-2 py-1 font-mono text-[11px] text-muted">
                     #{{ tag }}
                   </span>
                 </div>

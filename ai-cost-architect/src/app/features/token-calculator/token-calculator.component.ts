@@ -9,13 +9,17 @@ import { PageHeaderComponent } from '../../shared/components/page-header.compone
 import { IconComponent } from '../../shared/components/icon.component';
 import { MetaService } from '../../core/services/meta.service';
 
-const TOKEN_COLORS = [
-  '#dbeafe', // blue
-  '#dcfce7', // green
-  '#fef9c3', // yellow
-  '#fce7f3', // pink
-  '#ede9fe', // purple
-  '#ffedd5', // orange
+/**
+ * Monochrome ladder for the token visualiser. Only four steps, spaced far
+ * enough apart that neighbouring tokens are always clearly distinct — a
+ * six-step ramp would put near-identical greys side by side.
+ * Body text (#EDEDED) clears 4.5:1 against every step here.
+ */
+const TOKEN_SHADES = [
+  '#141414',
+  '#2E2E2E',
+  '#1F1F1F',
+  '#3D3D3D',
 ];
 
 const VISUALIZATION_TOKEN_LIMIT = 1000;
@@ -69,8 +73,10 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
           </div>
         </div>
 
-        <!-- Results -->
-        <div class="space-y-4">
+        <!-- Results — flex column so the empty state fills the grid track.
+             With square, hard-edged cards a short box beside a tall one
+             reads as a mistake; matched heights keep the grid honest. -->
+        <div class="flex flex-col gap-4">
           <div class="card card-pad" *ngIf="result as r">
             <h2 class="card-title mb-4">Text analysis</h2>
 
@@ -108,7 +114,7 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
               </strong>
             </p>
 
-            <div *ngIf="selectedModel" class="mt-4 rounded-lg bg-surface-2 p-3">
+            <div *ngIf="selectedModel" class="mt-4 border border-border bg-surface-2 p-3">
               <div class="mb-1 text-xs text-muted">Cost if used as input to {{ selectedModel.name }}</div>
               <div class="flex items-baseline gap-2">
                 <span class="font-mono text-lg font-bold tabular-nums text-accent">
@@ -122,8 +128,8 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
           </div>
 
           <div *ngIf="!text()"
-               class="card card-pad flex flex-col items-center justify-center py-14 text-center">
-            <span class="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent">
+               class="card card-pad flex flex-1 flex-col items-center justify-center py-14 text-center">
+            <span class="mb-3 flex h-11 w-11 items-center justify-center bg-accent/10 text-accent">
               <app-icon name="sigma" [size]="22" />
             </span>
             <p class="text-sm text-muted">Paste text above to count tokens.</p>
@@ -136,21 +142,19 @@ const VISUALIZATION_TOKEN_LIMIT = 1000;
         <div class="mb-3 flex items-center justify-between">
           <h2 class="card-title">Token visualization</h2>
           <span class="text-xs text-faint">
-            {{ formatNum(result.tokenCount) }} tokens · each color = 1 token
+            {{ formatNum(result.tokenCount) }} tokens · each block = 1 token
           </span>
         </div>
 
         <div *ngIf="result.tokenCount <= visualizationLimit; else tooManyTokens"
-             class="overflow-x-auto rounded-lg bg-surface-2 p-4 font-mono text-sm leading-7"
+             class="overflow-x-auto border border-border bg-surface-2 p-4 font-mono text-sm leading-7 text-fg"
              style="white-space: pre-wrap; word-break: break-word;">
           <span *ngFor="let seg of result.segments"
-                [style.backgroundColor]="tokenColor(seg.index)"
-                style="color:#0f172a"
-                class="rounded-sm">{{ seg.text }}</span>
+                [style.backgroundColor]="tokenColor(seg.index)">{{ seg.text }}</span>
         </div>
 
         <ng-template #tooManyTokens>
-          <p class="rounded-lg bg-surface-2 p-4 text-sm text-faint">
+          <p class="border border-border bg-surface-2 p-4 text-sm text-faint">
             Visualization is limited to {{ formatNum(visualizationLimit) }} tokens.
             Your text has {{ formatNum(result.tokenCount) }} tokens.
           </p>
@@ -235,7 +239,7 @@ export class TokenCalculatorComponent implements OnInit {
   }
 
   tokenColor(index: number): string {
-    return TOKEN_COLORS[index % TOKEN_COLORS.length];
+    return TOKEN_SHADES[index % TOKEN_SHADES.length];
   }
 
   formatCost(tokens: number, pricePer1M: number): string {

@@ -22,7 +22,8 @@ import { IconComponent } from '../../shared/components/icon.component';
           <h1 class="text-4xl font-bold text-fg sm:text-5xl mb-3">{{ post.title }}</h1>
           <p class="text-lg text-muted mb-4">{{ post.description }}</p>
           <div class="flex flex-wrap gap-2 mb-6">
-            <span *ngFor="let tag of post.tags" class="text-xs bg-accent/10 text-accent px-2.5 py-1 rounded">
+            <span *ngFor="let tag of post.tags"
+                  class="border border-border bg-surface-2 px-2 py-1 font-mono text-[11px] text-muted">
               #{{ tag }}
             </span>
           </div>
@@ -53,8 +54,9 @@ import { IconComponent } from '../../shared/components/icon.component';
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <a *ngFor="let relatedPost of relatedPosts"
              [routerLink]="'/blog/' + relatedPost.slug"
-             class="group block transition-all hover:shadow-sm">
-            <article class="border border-border rounded-lg p-5 bg-surface h-full hover:bg-surface-2 transition-colors flex flex-col">
+             class="group block">
+            <article class="flex h-full flex-col border border-border bg-surface p-5 transition-colors
+                            hover:border-border-strong hover:bg-surface-2">
               <div class="mb-2 flex items-center gap-2 text-xs text-muted">
                 <span class="badge-neutral text-xs">{{ relatedPost.category }}</span>
                 <span>{{ formatDate(relatedPost.publishedAt) }}</span>
@@ -86,79 +88,123 @@ import { IconComponent } from '../../shared/components/icon.component';
       </div>
     </ng-template>
   `,
+  // Post bodies are injected with [innerHTML], so they never receive Angular's
+  // scoping attribute — ::ng-deep is required for any of this to apply.
+  // (The previous rules used Vue's `:deep()` and `--color-*` variables that
+  // this project has never defined, so the article body was entirely unstyled.)
   styles: [`
-    :host {
-      display: block;
-    }
+    :host { display: block; }
 
     .prose {
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    .prose :deep h2 {
+    :host ::ng-deep .prose h2 {
       font-size: 1.5rem;
-      font-weight: bold;
-      margin-top: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-top: 2.5rem;
       margin-bottom: 0.75rem;
-      color: var(--color-fg);
+      padding-top: 1.5rem;
+      border-top: 1px solid rgb(var(--c-border));
+      color: rgb(var(--c-fg));
     }
 
-    .prose :deep h3 {
-      font-size: 1.25rem;
+    :host ::ng-deep .prose h3 {
+      font-size: 1.15rem;
       font-weight: 600;
-      margin-top: 1.25rem;
+      letter-spacing: -0.01em;
+      margin-top: 1.75rem;
       margin-bottom: 0.5rem;
-      color: var(--color-fg);
+      color: rgb(var(--c-fg));
     }
 
-    .prose :deep p {
-      margin-bottom: 1rem;
-      color: var(--color-muted);
+    :host ::ng-deep .prose p {
+      margin-bottom: 1.15rem;
+      color: rgb(var(--c-muted));
     }
 
-    .prose :deep ul,
-    .prose :deep ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--color-muted);
+    :host ::ng-deep .prose ul,
+    :host ::ng-deep .prose ol {
+      margin-left: 1.25rem;
+      margin-bottom: 1.15rem;
+      color: rgb(var(--c-muted));
+      list-style-position: outside;
+    }
+    :host ::ng-deep .prose ul { list-style-type: square; }
+    :host ::ng-deep .prose ol { list-style-type: decimal; }
+    :host ::ng-deep .prose li { margin-bottom: 0.5rem; }
+    :host ::ng-deep .prose li::marker { color: rgb(var(--c-faint)); }
+
+    :host ::ng-deep .prose a {
+      color: rgb(var(--c-fg));
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: rgb(var(--c-border-strong));
+      transition: text-decoration-color 150ms linear;
+    }
+    :host ::ng-deep .prose a:hover {
+      text-decoration-color: rgb(var(--c-accent));
     }
 
-    .prose :deep li {
-      margin-bottom: 0.5rem;
-    }
-
-    .prose :deep strong {
+    :host ::ng-deep .prose strong {
       font-weight: 600;
-      color: var(--color-fg);
+      color: rgb(var(--c-fg));
     }
 
-    .prose :deep table {
+    :host ::ng-deep .prose blockquote {
+      margin: 1.5rem 0;
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      border-left: 2px solid rgb(var(--c-border-strong));
+      color: rgb(var(--c-muted));
+    }
+
+    :host ::ng-deep .prose table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
+      font-size: 0.875rem;
     }
 
-    .prose :deep table th,
-    .prose :deep table td {
-      border: 1px solid var(--color-border);
-      padding: 0.75rem;
+    :host ::ng-deep .prose th,
+    :host ::ng-deep .prose td {
+      border: 1px solid rgb(var(--c-border));
+      padding: 0.7rem 0.75rem;
       text-align: left;
+      color: rgb(var(--c-muted));
     }
 
-    .prose :deep table th {
-      background-color: var(--color-surface-2);
+    :host ::ng-deep .prose th {
+      background-color: rgb(var(--c-surface-2));
+      font-size: 0.7rem;
       font-weight: 600;
-      color: var(--color-fg);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgb(var(--c-faint));
     }
 
-    .prose :deep code {
-      background-color: var(--color-surface-2);
-      color: var(--color-accent);
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-family: monospace;
-      font-size: 0.9em;
+    :host ::ng-deep .prose code {
+      background-color: rgb(var(--c-surface-2));
+      border: 1px solid rgb(var(--c-border));
+      color: rgb(var(--c-fg));
+      padding: 0.1rem 0.35rem;
+      border-radius: 0;
+      font-family: 'JetBrains Mono', Menlo, monospace;
+      font-size: 0.85em;
+    }
+
+    :host ::ng-deep .prose pre {
+      background-color: rgb(var(--c-surface-2));
+      border: 1px solid rgb(var(--c-border));
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    :host ::ng-deep .prose pre code {
+      border: 0;
+      padding: 0;
+      background: none;
     }
   `]
 })

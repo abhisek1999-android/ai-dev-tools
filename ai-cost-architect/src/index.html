@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Free AI cost calculators for developers. Count tokens for GPT, Claude, Gemini. Estimate LLM costs, compare pricing, plan RAG pipelines. All in your browser.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#000000">
   <meta property="og:site_name" content="TokIQ">
   <meta property="og:title" content="TokIQ — Free Token Counter & Cost Calculators">
   <meta property="og:description" content="Free token counter and AI cost calculators for developers. Count tokens instantly, compare LLM pricing, estimate costs, plan RAG systems.">
@@ -21,21 +21,14 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script>
-    // Apply the saved / preferred theme before first paint to avoid a flash.
-    (function () {
-      try {
-        var q = new URLSearchParams(location.search).get('theme');
-        if (q === 'light' || q === 'dark') { localStorage.setItem('theme', q); }
-        var t = localStorage.getItem('theme');
-        if (t !== 'light' && t !== 'dark') {
-          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        document.documentElement.classList.toggle('dark', t === 'dark');
-        document.documentElement.style.colorScheme = t;
-      } catch (e) {}
-    })();
-  </script>
+  <!--
+    The app is dark-only. Painting the ground black here (rather than waiting
+    for styles.css) avoids a white flash on first paint and on hard reloads.
+  -->
+  <style>
+    html { color-scheme: dark; background-color: #000; }
+    body { margin: 0; background-color: #000; }
+  </style>
 </head>
 <body>
   <app-root></app-root>

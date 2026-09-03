@@ -20,9 +20,10 @@ interface Feature { icon: string; title: string; description: string; }
   imports: [CommonModule, RouterLink, IconComponent],
   host: { ngSkipHydration: 'true' },
   template: `
-    <!-- Hero -->
-    <section class="border-b border-border bg-surface">
-      <div class="container-page py-16 sm:py-20">
+    <!-- Hero — intentionally transparent so the particle field reads through
+         it. Every other band stays opaque so body copy never competes. -->
+    <section class="border-b border-border">
+      <div class="container-page py-20 sm:py-28">
         <div class="mx-auto max-w-3xl text-center">
           <span class="badge-positive mb-6">
             <app-icon name="lock" [size]="13" />

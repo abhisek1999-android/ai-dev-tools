@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "WebSearch",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --virtual-time-budget=8000 --dump-dom \"http://localhost:8477/tools/model-comparison\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --force-device-scale-factor=2 --window-size=760,560 --virtual-time-budget=4000 --screenshot=swatch.png \"http://localhost:8477/swatch.html\")",
+      "Bash(curl -s -o /dev/null -w \"swatch:%{http_code} \" \"http://localhost:8477/swatch.html\")",
+      "Bash(curl -s \"http://localhost:8477/swatch.html\")",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --disable-gpu --no-sandbox --hide-scrollbars --window-size=800,600 --virtual-time-budget=4000 --screenshot=swatch.png \"http://localhost:8477/swatch.html\")"
     ]
   }
 }
