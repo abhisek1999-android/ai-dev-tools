@@ -18,7 +18,7 @@ import { IconComponent } from '../../shared/components/icon.component';
               <span class="flex h-6 w-6 items-center justify-center rounded-md bg-accent-solid text-white">
                 <app-icon name="calculator" [size]="14" />
               </span>
-              <h3 class="text-sm font-semibold text-fg">AI Cost Architect</h3>
+              <h3 class="text-sm font-semibold text-fg">tokiq</h3>
             </div>
             <p class="prose-muted mt-3">
               Free AI cost calculators for developers. Estimate, compare and optimize
@@ -58,7 +58,7 @@ import { IconComponent } from '../../shared/components/icon.component';
 
         <div class="mt-8 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 sm:flex-row">
           <p class="text-xs text-faint">
-            © {{ year }} AI Cost Architect. No warranty on pricing accuracy — verify before use.
+            © {{ year }} tokiq. No warranty on pricing accuracy — verify before use.
           </p>
           <p class="text-xs text-faint">Built for developers, by developers.</p>
         </div>

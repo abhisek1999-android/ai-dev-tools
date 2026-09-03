@@ -67,7 +67,7 @@ export class BlogListComponent implements OnInit {
 
   ngOnInit() {
     this.meta.setPageMeta({
-      title: 'AI Cost Blog — Guides and Strategies for LLM Optimization',
+      title: 'tokiq Blog — Guides and Strategies for LLM Optimization',
       description: 'Read expert guides on token counting, LLM pricing, RAG systems, cost optimization, and building cost-effective AI applications.',
       keywords: 'AI costs, LLM pricing, token counting, RAG, cost optimization',
       type: 'website'
@@ -76,8 +76,8 @@ export class BlogListComponent implements OnInit {
     this.meta.setJsonLd({
       '@context': 'https://schema.org',
       '@type': 'Blog',
-      name: 'AI Cost Blog',
-      description: 'Guides and strategies for optimizing AI application costs',
+      name: 'tokiq Blog',
+      description: 'Guides and strategies for optimizing AI application costs, token counting, and budgeting',
       url: 'https://tokiq.in/blog'
     });
   }

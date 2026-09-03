@@ -21,7 +21,7 @@ interface NavLink { label: string; path: string; icon: string; }
               <app-icon name="calculator" [size]="16" />
             </span>
             <span class="font-semibold tracking-tight text-fg transition-colors group-hover:text-accent">
-              AI Cost Architect
+              tokiq
             </span>
           </a>
 
