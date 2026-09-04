@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { getBlogPost, getRelatedPosts, BLOG_POSTS } from '../../lib/blog/blog.data';
-import { MetaService } from '../../core/services/meta.service';
+import { MetaService, DEFAULT_OG_IMAGE } from '../../core/services/meta.service';
 import { IconComponent } from '../../shared/components/icon.component';
 
 @Component({
@@ -242,6 +242,15 @@ export class BlogPostComponent implements OnInit {
         '@type': 'Organization',
         name: this.post.author
       },
+      publisher: {
+        '@type': 'Organization',
+        name: 'TokIQ',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://tokiq.in/icon-512.png'
+        }
+      },
+      image: this.post.image || DEFAULT_OG_IMAGE,
       keywords: this.post.tags
     });
   }

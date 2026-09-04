@@ -75,6 +75,38 @@ Always update `PRICING_VERSION` at the top of the file when you add/change prici
 5. Add tool card on the home page in `src/app/features/home/home.component.ts`
 6. Calculation logic goes in `src/app/lib/calculators/<name>.calculator.ts`
 
+## Brand assets
+
+The source logo is a black-on-white wordmark. Everything shipped is derived from it
+by `scripts/generate-brand-assets.mjs`, which inverts it to a white-on-transparent
+negative (the app is dark-only) and crops the square icon from the `Q` glyph, since
+the 2.93:1 wordmark is illegible at 16px.
+
+| File | Used for |
+| --- | --- |
+| `src/assets/tokiq-wordmark.png` | Header + footer logotype |
+| `src/favicon.ico` (16/32/48) | Browser tab, legacy crawlers |
+| `public/favicon-{16,32,96}x*.png` | Browser tab, Google Search result icon |
+| `public/apple-touch-icon.png` | iOS home screen |
+| `public/icon-{192,512}.png` | PWA install, `Organization.logo` in JSON-LD |
+| `public/icon-maskable-512.png` | Android adaptive icon |
+| `public/og-image.png` (1200x630) | Open Graph / Twitter card |
+
+The source file lives at `brand/tokiq-logo-source.png`. Replace it and regenerate:
+```bash
+npm run gen:brand                                  # uses brand/tokiq-logo-source.png
+node scripts/generate-brand-assets.mjs other.png   # or an explicit source
+```
+The script asserts the source's ink bounding box before cropping, so a re-cut logo
+fails loudly instead of silently producing a mis-cropped icon. This is deliberately
+*not* part of `npm run build` — the outputs are committed and only change when the
+logo does.
+
+Everything in `public/` is copied to the site root at build time (see `angular.json`
+`assets`). The icon `<link>` tags and the site-level Organization/WebSite JSON-LD live
+in `src/index.html` — kept static rather than injected by `MetaService` so crawlers
+that do not execute JS still see them.
+
 ## Pricing data update process
 AI pricing changes frequently. Current update cadence: **manual, every 1–2 weeks**.
 

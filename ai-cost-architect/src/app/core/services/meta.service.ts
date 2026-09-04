@@ -11,6 +11,9 @@ export interface PageMeta {
   author?: string;
 }
 
+/** Site-wide social card. Crawlers need an absolute URL, so it is not a relative path. */
+export const DEFAULT_OG_IMAGE = 'https://tokiq.in/og-image.png';
+
 @Injectable({ providedIn: 'root' })
 export class MetaService {
   private meta = inject(Meta);
@@ -24,10 +27,11 @@ export class MetaService {
     this.meta.updateTag({ property: 'og:description', content: page.description });
     this.meta.updateTag({ property: 'og:type', content: page.type || 'website' });
 
-    if (page.image) {
-      this.meta.updateTag({ property: 'og:image', content: page.image });
-      this.meta.updateTag({ name: 'twitter:image', content: page.image });
-    }
+    // Always set a card image — pages that do not supply one fall back to the
+    // TokIQ wordmark card so no route ever shares as a blank preview.
+    const image = page.image || DEFAULT_OG_IMAGE;
+    this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ name: 'twitter:image', content: image });
 
     if (page.url) {
       this.meta.updateTag({ property: 'og:url', content: page.url });

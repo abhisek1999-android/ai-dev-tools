@@ -14,11 +14,14 @@ interface NavLink { label: string; path: string; icon: string; }
       <div class="container-page">
         <div class="flex h-14 items-center justify-between gap-4">
 
-          <!-- Wordmark — no lockup mark; the type carries the brand. -->
-          <a routerLink="/"
-             class="shrink-0 text-[15px] font-semibold tracking-tight text-fg
-                    transition-opacity hover:opacity-70">
-            TokIQ
+          <!-- Wordmark — the logotype carries the brand; no separate lockup mark.
+               The PNG is a white-on-transparent negative, so it sits on the dark
+               ground unmodified. Height is fixed, width follows the 2.93:1 ratio. -->
+          <a routerLink="/" aria-label="TokIQ — home"
+             class="shrink-0 transition-opacity hover:opacity-70">
+            <img src="assets/tokiq-wordmark.png" alt="TokIQ"
+                 width="631" height="215"
+                 class="h-[34px] w-auto" />
           </a>
 
           <!-- Desktop nav — underline marks the active route -->

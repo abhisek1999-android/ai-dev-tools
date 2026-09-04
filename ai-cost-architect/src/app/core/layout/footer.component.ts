@@ -15,7 +15,10 @@ import { IconComponent } from '../../shared/components/icon.component';
 
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="text-sm font-semibold text-fg">TokIQ</h3>
+              <h3 class="sr-only">TokIQ</h3>
+              <img src="assets/tokiq-wordmark.png" alt="TokIQ"
+                   width="631" height="215"
+                   class="h-[42px] w-auto" />
             </div>
             <p class="prose-muted mt-3">
               Free AI cost calculators for developers. Estimate, compare and optimize
