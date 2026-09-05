@@ -1,6 +1,7 @@
 {
   "version": 2,
   "outputDirectory": "dist/ai-cost-architect",
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
     { "source": "/robots.txt", "destination": "/robots.txt" },

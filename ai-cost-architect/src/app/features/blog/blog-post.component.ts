@@ -225,10 +225,12 @@ export class BlogPostComponent implements OnInit {
     }
 
     this.meta.setPageMeta({
-      title: `${this.post.title} — AI Cost Blog`,
+      title: `${this.post.title} — TokIQ Blog`,
       description: this.post.description,
       keywords: this.post.tags.join(', '),
       author: this.post.author,
+      path: `/blog/${this.post.slug}`,
+      image: this.post.image || DEFAULT_OG_IMAGE,
       type: 'article'
     });
 
@@ -236,6 +238,11 @@ export class BlogPostComponent implements OnInit {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
       headline: this.post.title,
+      url: `https://tokiq.in/blog/${this.post.slug}`,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `https://tokiq.in/blog/${this.post.slug}`
+      },
       description: this.post.description,
       datePublished: this.post.publishedAt,
       author: {

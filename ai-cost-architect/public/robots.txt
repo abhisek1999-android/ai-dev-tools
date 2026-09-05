@@ -1,19 +1,7 @@
 User-agent: *
 Allow: /
-Allow: /tools/
-Allow: /blog/
-Disallow: /admin/
-Disallow: /*.json$
-Disallow: /*.js$
-Disallow: /*.css$
+
+# The app is client-rendered: a crawler that cannot fetch the JS and CSS bundles
+# sees an empty <app-root> shell. Never disallow *.js / *.css here.
 
 Sitemap: https://tokiq.in/sitemap.xml
-
-User-agent: AdsBot-Google
-Allow: /
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /

@@ -1,0 +1,134 @@
+{
+  "site": "https://tokiq.in",
+  "defaultOgImage": "https://tokiq.in/og-image.png",
+  "pages": [
+    {
+      "path": "/tools/token-calculator",
+      "title": "Free AI Token Counter for GPT, Claude & Gemini — TokIQ",
+      "description": "Paste any text and instantly count tokens for GPT-4o, Claude, Gemini and more. Character, word and line counts too — all in your browser.",
+      "keywords": "token counter, ai token counter, token counting, GPT tokens, Claude tokens, Gemini tokens, tokenizer",
+      "priority": "1.0",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "TokIQ Token Counter",
+        "description": "Free token counter for GPT, Claude, Gemini and more LLMs",
+        "url": "https://tokiq.in/tools/token-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
+      "path": "/tools/llm-cost-calculator",
+      "title": "LLM Cost Calculator: Estimate AI API Costs — TokIQ",
+      "description": "Calculate daily, monthly and yearly LLM API costs for GPT-4o, Claude, Gemini, Mistral and more, with a full per-token breakdown.",
+      "keywords": "LLM cost calculator, API costs, token calculator, pricing estimate",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LLM Cost Calculator",
+        "description": "Calculate costs for LLM API usage",
+        "url": "https://tokiq.in/tools/llm-cost-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
+      "path": "/tools/model-comparison",
+      "title": "LLM Model Comparison: Compare AI Provider Costs — TokIQ",
+      "description": "Side-by-side cost comparison for GPT-4o, Claude, Gemini, Mistral, DeepSeek and Llama. Find the cheapest model for your workload.",
+      "keywords": "model comparison, LLM pricing, GPT vs Claude, cost comparison",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Model Comparison",
+        "description": "Compare LLM costs across providers",
+        "url": "https://tokiq.in/tools/model-comparison",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
+      "path": "/tools/context-window-calculator",
+      "title": "Context Window Calculator for LLM Prompts — TokIQ",
+      "description": "See how much of a model's context window your text uses and what it costs. Context window sizes for GPT, Claude, Gemini and more.",
+      "keywords": "context window, token limit, LLM context, prompt size",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Context Window Calculator",
+        "description": "Calculate context window usage and costs",
+        "url": "https://tokiq.in/tools/context-window-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
+      "path": "/tools/rag-cost-calculator",
+      "title": "RAG Cost Calculator: Estimate Pipeline Costs — TokIQ",
+      "description": "Estimate full RAG pipeline costs: embeddings, vector storage, retrieval, reranking and LLM generation — with what-if optimization.",
+      "keywords": "RAG cost, embedding costs, vector database, retrieval costs",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "RAG Cost Calculator",
+        "description": "Calculate RAG pipeline costs",
+        "url": "https://tokiq.in/tools/rag-cost-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
+      "path": "/home",
+      "title": "TokIQ — Free Token Counter & AI Cost Calculators",
+      "description": "Free tools to estimate AI costs: token counter, LLM cost calculator, model comparison, context window and RAG cost planner.",
+      "keywords": "AI cost calculator, token counter, LLM pricing, model comparison, RAG cost, AI budgeting",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "TokIQ Tools",
+        "description": "Free token counter and AI cost calculators for developers",
+        "url": "https://tokiq.in/home",
+        "isPartOf": { "@id": "https://tokiq.in/#website" }
+      }
+    },
+    {
+      "path": "/blog",
+      "title": "TokIQ Blog: Guides for LLM Cost Optimization",
+      "description": "Guides on token counting, LLM pricing, RAG systems and cost optimization for building cost-effective AI applications.",
+      "keywords": "AI costs, LLM pricing, token counting, RAG, cost optimization",
+      "priority": "0.8",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "TokIQ Blog",
+        "description": "Guides and strategies for optimizing AI application costs, token counting, and budgeting",
+        "url": "https://tokiq.in/blog",
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    }
+  ],
+  "rootAlias": "/tools/token-calculator"
+}

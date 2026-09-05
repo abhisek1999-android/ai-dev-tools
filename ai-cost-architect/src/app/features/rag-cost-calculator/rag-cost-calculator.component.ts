@@ -212,21 +212,7 @@ export class RagCostCalculatorComponent implements OnInit {
   documentCount = 1000;
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'RAG Cost Calculator — Estimate Retrieval-Augmented Generation Costs',
-      description: 'Calculate full RAG pipeline costs: embeddings, vector storage, retrieval, reranking, and LLM generation. Optimize your RAG system budget.',
-      keywords: 'RAG cost, embedding costs, vector database, retrieval costs',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'RAG Cost Calculator',
-      description: 'Calculate RAG pipeline costs',
-      url: 'https://tokiq.in/tools/rag-cost-calculator',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/tools/rag-cost-calculator');
   }
   avgDocumentTokens = 2000;
   corpusGrowthPct = 10;

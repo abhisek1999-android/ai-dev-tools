@@ -41,7 +41,7 @@ src/app/
 ```bash
 npm install
 npm start                    # dev server at http://localhost:4200
-npm run build                # production build → dist/ai-cost-architect/
+npm run build                # sitemap + ng build + per-route SEO HTML → dist/ai-cost-architect/
 ```
 
 ## How to add a new model
@@ -106,6 +106,52 @@ Everything in `public/` is copied to the site root at build time (see `angular.j
 `assets`). The icon `<link>` tags and the site-level Organization/WebSite JSON-LD live
 in `src/index.html` — kept static rather than injected by `MetaService` so crawlers
 that do not execute JS still see them.
+
+## SEO: canonical URLs and per-route metadata
+
+Every tool page is its own canonical page. `/tools/token-calculator` must be the
+result Google shows for "free AI token counter" — not the site root.
+
+**Single source of truth:** `src/app/core/seo/page-seo.json`. One entry per static
+route with `title`, `description`, `keywords`, sitemap `priority`/`changefreq`, and
+the page's JSON-LD. Three consumers read it:
+
+| Consumer | When | What it does |
+| --- | --- | --- |
+| `MetaService.setRouteMeta(path)` | runtime | Sets title/description/OG/Twitter tags, canonical and JSON-LD on client-side navigation |
+| `scripts/prerender-html.mjs` | after `ng build` | Writes `<route>/index.html` per route with those tags baked into the served HTML |
+| `scripts/generate-sitemap.mjs` | before `ng build` | Emits `public/sitemap.xml` from the same paths |
+
+Because the app is client-rendered, a canonical injected only by JS is unreliable —
+it has to be in the bytes the crawler fetches. `prerender-html.mjs` clones the built
+`index.html` once per route and rewrites the head, so `/tools/model-comparison` is
+served with *its own* canonical. Vercel and Cloudflare both check the filesystem
+before the SPA fallback, so no routing config change is needed. The SPA still boots
+and takes over routing; only the `<head>` differs between files.
+
+`/` renders the token calculator (see the redirect in `app.routes.ts`), so its
+`index.html` — which is also the SPA fallback for unmatched URLs — declares
+`/tools/token-calculator` canonical rather than competing with it. `/` is therefore
+absent from the sitemap.
+
+**Adding a route:** add the entry to `page-seo.json` and call
+`this.meta.setRouteMeta('/your/path')` in the component's `ngOnInit`. The sitemap
+and the prerendered HTML follow automatically. A route with no entry logs a console
+warning instead of silently inheriting the previous page's canonical.
+
+`prerender-html.mjs` throws if a tag it patches is missing or duplicated in
+`src/index.html`, so moving those tags breaks the build rather than the SEO. The
+per-page tags in `src/index.html` are checked in with the `/` values; edit
+`page-seo.json`, not the HTML.
+
+**Never** disallow `*.js` / `*.css` in `public/robots.txt`: a crawler that cannot
+fetch the bundles sees an empty `<app-root>`.
+
+Verify a build locally:
+```bash
+npm run build
+grep -o '<link rel="canonical"[^>]*>' dist/ai-cost-architect/tools/*/index.html
+```
 
 ## Pricing data update process
 AI pricing changes frequently. Current update cadence: **manual, every 1–2 weeks**.

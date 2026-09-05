@@ -173,21 +173,7 @@ export class ContextWindowCalculatorComponent implements OnInit {
   selectedModelId = 'gpt-4o';
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'Context Window Calculator — Calculate LLM Context Usage & Costs',
-      description: 'Calculate how much of a model\'s context window your text uses and what it costs. See context window sizes for GPT, Claude, Gemini, and more.',
-      keywords: 'context window, token limit, LLM context, prompt size',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Context Window Calculator',
-      description: 'Calculate context window usage and costs',
-      url: 'https://tokiq.in/tools/context-window-calculator',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/tools/context-window-calculator');
   }
   inputMode = signal<'text' | 'tokens'>('text');
   pastedText = signal('');

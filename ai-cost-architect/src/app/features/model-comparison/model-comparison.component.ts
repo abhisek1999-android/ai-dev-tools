@@ -152,21 +152,7 @@ export class ModelComparisonComponent implements OnInit {
   private meta = inject(MetaService);
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'LLM Model Comparison — Compare Costs Across AI Providers',
-      description: 'Side-by-side cost comparison for GPT-4o, Claude, Gemini, Mistral, DeepSeek, Llama, and more. Find the most cost-effective model for your workload.',
-      keywords: 'model comparison, LLM pricing, GPT vs Claude, cost comparison',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'Model Comparison',
-      description: 'Compare LLM costs across providers',
-      url: 'https://tokiq.in/tools/model-comparison',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/tools/model-comparison');
   }
 
   inputTokens = 1000;

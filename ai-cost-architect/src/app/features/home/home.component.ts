@@ -96,21 +96,7 @@ export class HomeComponent implements OnInit {
   private meta = inject(MetaService);
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'TokIQ — Free Token Counter & AI Cost Calculators',
-      description: 'Free tools to estimate AI costs: token counter, LLM cost calculator, model comparison, context window calculator, and RAG cost planner. All processing in-browser.',
-      keywords: 'AI cost calculator, token counter, LLM pricing, model comparison, RAG cost, AI budgeting',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'TokIQ',
-      description: 'Free token counter and AI cost calculators for developers',
-      url: 'https://tokiq.in/home',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/home');
   }
 
   tools: Tool[] = [

@@ -190,21 +190,7 @@ export class TokenCalculatorComponent implements OnInit {
   private meta = inject(MetaService);
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'Free Token Counter — Count tokens for GPT, Claude, Gemini',
-      description: 'Paste any text and instantly count tokens for GPT-4o, Claude, Gemini, and more. See character, word, and line counts. All processing happens in your browser.',
-      keywords: 'token counter, token counting, GPT tokens, Claude tokens, Gemini tokens, tokenizer',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'TokIQ Token Counter',
-      description: 'Free token counter for GPT, Claude, Gemini and more LLMs',
-      url: 'https://tokiq.in/tools/token-calculator',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/tools/token-calculator');
   }
 
   get selectedModel() {

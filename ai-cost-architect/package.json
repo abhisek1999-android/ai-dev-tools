@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "gen:sitemap": "node scripts/generate-sitemap.mjs",
+    "gen:seo-html": "node scripts/prerender-html.mjs",
     "gen:brand": "node scripts/generate-brand-assets.mjs",
     "start": "ng serve",
-    "build": "node scripts/generate-sitemap.mjs && ng build",
+    "build": "node scripts/generate-sitemap.mjs && ng build && node scripts/prerender-html.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

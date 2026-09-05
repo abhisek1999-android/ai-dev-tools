@@ -172,21 +172,7 @@ export class LlmCostCalculatorComponent implements OnInit {
   private meta = inject(MetaService);
 
   ngOnInit() {
-    this.meta.setPageMeta({
-      title: 'LLM Cost Calculator — Estimate Monthly AI API Costs',
-      description: 'Calculate daily, monthly, and yearly costs for LLM API usage. Get cost estimates for GPT-4o, Claude, Gemini, Mistral, and more with full breakdown.',
-      keywords: 'LLM cost calculator, API costs, token calculator, pricing estimate',
-      type: 'website'
-    });
-
-    this.meta.setJsonLd({
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: 'LLM Cost Calculator',
-      description: 'Calculate costs for LLM API usage',
-      url: 'https://tokiq.in/tools/llm-cost-calculator',
-      applicationCategory: 'UtilityApplication'
-    });
+    this.meta.setRouteMeta('/tools/llm-cost-calculator');
   }
 
   selectedModelId = 'gpt-4o';
