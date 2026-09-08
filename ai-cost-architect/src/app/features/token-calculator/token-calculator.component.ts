@@ -10,16 +10,21 @@ import { IconComponent } from '../../shared/components/icon.component';
 import { MetaService } from '../../core/services/meta.service';
 
 /**
- * Monochrome ladder for the token visualiser. Only four steps, spaced far
- * enough apart that neighbouring tokens are always clearly distinct — a
- * six-step ramp would put near-identical greys side by side.
- * Body text (#EDEDED) clears 4.5:1 against every step here.
+ * Muted multi-hue ladder for the token visualiser, scoped to this one view —
+ * the rest of the site stays monochrome by design. Lightness is capped at
+ * 20% (below the old grey ladder's 24% max) so body text (#EDEDED) still
+ * clears 4.5:1 against every step. Hues are spread ~40-60° apart so
+ * neighbouring tokens read as distinct colours, not a gradient.
  */
 const TOKEN_SHADES = [
-  '#141414',
-  '#2E2E2E',
-  '#1F1F1F',
-  '#3D3D3D',
+  'hsl(210, 38%, 17%)', // blue
+  'hsl(150, 32%, 16%)', // green
+  'hsl(280, 34%, 18%)', // violet
+  'hsl(35, 42%, 17%)',  // amber
+  'hsl(340, 36%, 18%)', // rose
+  'hsl(190, 36%, 16%)', // teal
+  'hsl(15, 42%, 17%)',  // coral
+  'hsl(255, 32%, 18%)', // indigo
 ];
 
 const VISUALIZATION_TOKEN_LIMIT = 1000;

@@ -153,6 +153,23 @@ import { IconComponent } from '../../shared/components/icon.component';
       color: rgb(var(--c-fg));
     }
 
+    :host ::ng-deep .prose figure {
+      margin: 1.75rem 0;
+    }
+
+    :host ::ng-deep .prose img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid rgb(var(--c-border));
+    }
+
+    :host ::ng-deep .prose figcaption {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: rgb(var(--c-faint));
+    }
+
     :host ::ng-deep .prose blockquote {
       margin: 1.5rem 0;
       padding: 0.25rem 0 0.25rem 1.25rem;

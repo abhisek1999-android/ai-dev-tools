@@ -30,36 +30,48 @@ export function loadSeo() {
 /**
  * Pulls the flat fields off each entry in BLOG_POSTS. The posts are plain object
  * literals at a fixed indent, so an anchored per-key match is enough and avoids
- * compiling TypeScript just to read five strings. Field counts are cross-checked
- * by the caller, so a reformat of blog.data.ts fails the build instead of
- * silently producing pages with mismatched titles.
+ * compiling TypeScript just to read a handful of strings. Fields are scoped to
+ * one post object at a time (rather than matched globally across the whole
+ * file) so an optional field present on only some posts, like `image`, still
+ * lines up with the right post instead of shifting every later post's values.
  */
 export function loadBlogPosts() {
   const src = readFileSync(resolve(ROOT, 'src/app/lib/blog/blog.data.ts'), 'utf8');
 
-  const pick = key =>
-    [...src.matchAll(new RegExp(`^    ${key}: '((?:[^'\\\\]|\\\\.)*)',$`, 'gm'))]
-      .map(m => m[1].replace(/\\'/g, "'"));
+  // Each post is a `  { ... },` block at 2-space indent inside BLOG_POSTS.
+  const blocks = src.split(/^  \{$/m).slice(1).map(block => {
+    const end = block.search(/^  \},?$/m);
+    return end === -1 ? block : block.slice(0, end);
+  });
 
-  const slugs = pick('slug');
-  const titles = pick('title');
-  const descriptions = pick('description');
-  const publishedAt = pick('publishedAt');
-  const authors = pick('author');
-
-  const counts = { slugs: slugs.length, titles: titles.length, descriptions: descriptions.length };
-  if (!slugs.length || new Set(Object.values(counts)).size !== 1) {
-    throw new Error(
-      `blog.data.ts parse mismatch (${JSON.stringify(counts)}). ` +
-      `Each post needs slug/title/description as single-quoted strings at four-space indent.`
-    );
+  if (!blocks.length) {
+    throw new Error('blog.data.ts parse mismatch: no post objects found in BLOG_POSTS.');
   }
 
-  return slugs.map((slug, i) => ({
-    slug,
-    title: titles[i],
-    description: descriptions[i],
-    publishedAt: publishedAt[i],
-    author: authors[i] || 'TokIQ',
-  }));
+  const pick = (block, key) => {
+    const m = block.match(new RegExp(`^    ${key}: '((?:[^'\\\\]|\\\\.)*)',$`, 'm'));
+    return m ? m[1].replace(/\\'/g, "'") : undefined;
+  };
+
+  return blocks.map(block => {
+    const slug = pick(block, 'slug');
+    const title = pick(block, 'title');
+    const description = pick(block, 'description');
+
+    if (!slug || !title || !description) {
+      throw new Error(
+        `blog.data.ts parse mismatch: a post is missing slug/title/description as ` +
+        `single-quoted strings at four-space indent.`
+      );
+    }
+
+    return {
+      slug,
+      title,
+      description,
+      publishedAt: pick(block, 'publishedAt'),
+      author: pick(block, 'author') || 'TokIQ',
+      image: pick(block, 'image'),
+    };
+  });
 }

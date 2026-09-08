@@ -140,6 +140,7 @@ for (const post of loadBlogPosts()) {
     title: `${post.title} — TokIQ Blog`,
     description: post.description,
     ogType: 'article',
+    image: post.image,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
@@ -150,7 +151,7 @@ for (const post of loadBlogPosts()) {
       datePublished: post.publishedAt,
       author: { '@type': 'Organization', name: post.author },
       publisher: { '@id': `${SITE}/#organization` },
-      image: seo.defaultOgImage,
+      image: post.image || seo.defaultOgImage,
     },
   });
 }
