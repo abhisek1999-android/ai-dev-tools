@@ -133,6 +133,13 @@ export class HomeComponent implements OnInit {
       path: '/tools/rag-cost-calculator',
       badge: 'Advanced',
     },
+    {
+      icon: 'shield',
+      title: 'LLM Answer Validator',
+      description: 'Extract factual claims from any LLM answer and verify each against your source — groundedness, relevance, and per-claim verdicts with evidence.',
+      path: '/tools/answer-validator',
+      badge: 'New',
+    },
   ];
 
   features: Feature[] = [

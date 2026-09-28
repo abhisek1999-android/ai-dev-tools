@@ -37,6 +37,11 @@ export const routes: Routes = [
       import('./features/rag-cost-calculator/rag-cost-calculator.component').then(m => m.RagCostCalculatorComponent),
   },
   {
+    path: 'tools/answer-validator',
+    loadComponent: () =>
+      import('./features/answer-validator/answer-validator.component').then(m => m.AnswerValidatorComponent),
+  },
+  {
     path: 'blog',
     loadComponent: () =>
       import('./features/blog/blog-list.component').then(m => m.BlogListComponent),

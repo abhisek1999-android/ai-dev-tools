@@ -26,6 +26,16 @@ const ICONS: Record<string, string> = {
     '<path d="M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a.5.5 0 0 1 0 .8l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"/>',
   check:
     '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  'check-circle':
+    '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  'x-circle':
+    '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
+  'help-circle':
+    '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+  loader:
+    '<path d="M21 12a9 9 0 1 1-6.219-8.56"/>',
+  server:
+    '<rect width="20" height="8" x="2" y="2" rx="0" ry="0"/><rect width="20" height="8" x="2" y="14" rx="0" ry="0"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>',
   menu:
     '<line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>',
   x:

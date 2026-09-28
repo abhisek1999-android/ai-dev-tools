@@ -22,9 +22,13 @@ import { IconComponent } from './icon.component';
       <p *ngIf="subtitle" class="mt-1.5 max-w-2xl text-muted">{{ subtitle }}</p>
 
       <div class="mt-4 flex flex-wrap items-center gap-2">
-        <span class="badge-positive">
+        <span *ngIf="runsInBrowser" class="badge-positive">
           <app-icon name="lock" [size]="13" />
           Runs in your browser
+        </span>
+        <span *ngIf="!runsInBrowser" class="badge-neutral">
+          <app-icon name="server" [size]="13" />
+          Server-assisted
         </span>
         <span *ngIf="pricingVersion" class="badge-neutral">
           Pricing {{ pricingVersion }}
@@ -38,4 +42,6 @@ export class PageHeaderComponent {
   @Input({ required: true }) title = '';
   @Input() subtitle = '';
   @Input() pricingVersion = '';
+  /** False on the (so far single) server-assisted tool, which must not claim browser-only. */
+  @Input() runsInBrowser = true;
 }

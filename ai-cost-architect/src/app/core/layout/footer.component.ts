@@ -76,5 +76,6 @@ export class FooterComponent {
     { label: 'Model Comparison',      path: '/tools/model-comparison' },
     { label: 'Context Window',        path: '/tools/context-window-calculator' },
     { label: 'RAG Cost Calculator',   path: '/tools/rag-cost-calculator' },
+    { label: 'LLM Answer Validator',  path: '/tools/answer-validator' },
   ];
 }

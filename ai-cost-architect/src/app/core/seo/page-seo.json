@@ -98,6 +98,25 @@
       }
     },
     {
+      "path": "/tools/answer-validator",
+      "title": "LLM Answer Validator: Check AI Answers Against Sources — TokIQ",
+      "description": "Check whether an LLM answer is actually supported by the evidence behind it. Extracts factual claims, judges each against your source, and reports groundedness, relevance and per-claim verdicts.",
+      "keywords": "LLM answer validator, hallucination checker, groundedness, claim verification, RAG evaluation",
+      "priority": "0.9",
+      "changefreq": "weekly",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LLM Answer Validator",
+        "description": "Validate LLM answers against a source of truth, claim by claim",
+        "url": "https://tokiq.in/tools/answer-validator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://tokiq.in/#organization" }
+      }
+    },
+    {
       "path": "/home",
       "title": "TokIQ — Free Token Counter & AI Cost Calculators",
       "description": "Free tools to estimate AI costs: token counter, LLM cost calculator, model comparison, context window and RAG cost planner.",

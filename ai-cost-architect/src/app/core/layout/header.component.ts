@@ -71,6 +71,7 @@ export class HeaderComponent {
     { label: 'Compare Models',  path: '/tools/model-comparison',            icon: 'bar-chart' },
     { label: 'Context Window',  path: '/tools/context-window-calculator',   icon: 'window' },
     { label: 'RAG Cost',        path: '/tools/rag-cost-calculator',         icon: 'search' },
+    { label: 'Answer Validator', path: '/tools/answer-validator',           icon: 'shield' },
     { label: 'Blog',            path: '/blog',                              icon: 'book-open' },
   ];
 

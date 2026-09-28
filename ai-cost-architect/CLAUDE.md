@@ -9,6 +9,7 @@ A free web-based toolkit of AI cost calculators for developers. All calculations
 - Model Comparison — side-by-side cost table across providers
 - Context Window Calculator — usage % + cost for your context
 - RAG Cost Calculator — full pipeline cost with What-If optimization
+- LLM Answer Validator — extract claims from an LLM answer and verify each against your source (server-assisted; see "The Answer Validator API" below)
 
 ## Tech stack
 - **Framework:** Angular 16 (standalone components)
@@ -43,6 +44,24 @@ npm install
 npm start                    # dev server at http://localhost:4200
 npm run build                # sitemap + ng build + per-route SEO HTML → dist/ai-cost-architect/
 ```
+
+## The Answer Validator API (`api/`)
+`/tools/answer-validator` is the one server-assisted tool. Its FastAPI backend lives in
+`api/` (see `api/README.md`): claim extraction via a configurable LLM (Ollama default;
+OpenAI/Anthropic/Groq supported), semantic verdicts via TypeSafe's Jev, deterministic
+aggregation in pure Python. Run it with:
+
+```bash
+cd api && python -m venv .venv && .venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env        # set TYPESAFE_API_KEY (+ provider key or use Ollama)
+uvicorn app.main:app --reload --port 8000
+```
+
+The SPA talks to `environment.apiBaseUrl` (localhost:8000 in dev, same-origin `/api`
+in prod via `angular.json` fileReplacements). Backend tests: `cd api && pytest`.
+Without the API running, the tool page shows a friendly "API server not reachable"
+error — every other tool keeps working offline.
 
 ## How to add a new model
 Edit `src/app/lib/pricing/pricing.data.ts`:
@@ -175,7 +194,7 @@ npm run build
 The `vercel.json` rewrites all routes to `index.html` for client-side routing.
 
 ## Architecture principles (from project plan)
-- **Browser-first:** All calculations run client-side. User prompts never leave the device.
+- **Browser-first:** All *calculator* logic runs client-side. Prompts for the calculators never leave the device. The LLM Answer Validator is the deliberate exception — it is server-assisted (Phase 8 pulled forward for this one tool) and its page says so ("Server-assisted" badge instead of "Runs in your browser").
 - **Show the math:** Every result has an expandable formula (ShowMathComponent).
 - **Explainable pricing:** Every model entry has a `pricingUrl` and `lastVerified` date.
 - **No backend in Phase 1:** Backend (FastAPI/Python) is planned for Phase 8 AI features only.
